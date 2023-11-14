@@ -22,6 +22,7 @@ const Login = ({ setIsLoggedIn }) => {
             'Authorization': `Bearer ${codeResponse.access_token}`
           }
         })
+        console.log(res.data)
         handleGoogle(res.data)
       }
       catch(e) {
@@ -36,7 +37,9 @@ const Login = ({ setIsLoggedIn }) => {
   async function handleGoogle(credential)  {
 
     try {
+      console.log('requisitando dados do login social')
         const response = await Api.post(`/login/social`, credential);
+        console.log('passou pela api')
         treatResponse(response);
     }
 
@@ -70,6 +73,7 @@ const Login = ({ setIsLoggedIn }) => {
 
   async function treatResponse(response){
     
+
     if (response.status === 200 || response.status === 201) {
       const token = response.data.token;
       const name = response.data.username;
